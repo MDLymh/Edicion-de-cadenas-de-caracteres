@@ -1,8 +1,18 @@
-def recorrido(cadenaModificar = "ATGCCACTCTA", chunk = 3, salto = 2):
-    for i in range (0,len(cadenaModificar) - chunk +  1,salto):
+import pyarrow
+import pandas as pd
+
+def recorrido(alteraciones=pd.DataFrame(),cadenaModificar = "ATGCCACTCTA",movs={"chunk": 3,"salto" : 2}):
+    df = pd.DataFrame()
+    alteraciones.sort_values(by=[0])
+    print(alteraciones['posicion'])
+    cadenas=[]
+    for i in range (0,len(cadenaModificar) - movs["chunk"] +  1,movs["salto"]):
         temp = ""
-        for j in range(i, i+chunk):
+        for j in range(i, i+movs["chunk"]):
             temp = temp + cadenaModificar[j]
-        print(temp)
-recorrido()
+        cadenas.append(temp)
+    df["Cadenas"] = cadenas
+    df.to_csv("csv_temp.csv",index=False)
+
+# recorrido()
 
