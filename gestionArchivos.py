@@ -4,10 +4,11 @@ import pandas as pd
 from recorrido import recorrido as rc
 
 def procesarArchivo(rutaArchivo):
-    df = pd.read_csv(rutaArchivo,sep = ',',header=None,index_col=None)
-    cadenaModificar = df[3][1]
-    del df[3]
+    df = pd.read_csv(rutaArchivo,sep = ',',index_col=False)
+    cadenaModificar = df["string_a_modificar"][0]
+    del df["string_a_modificar"]
     rc(df,cadenaModificar,{"chunk": 10,"salto": 5})
+
 
 def continuarProcesarArchivo(textoRuta):
     if len(textoRuta)==0:
